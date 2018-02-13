@@ -1,0 +1,28 @@
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    line-height: 1.4em;
+    vertical-align: baseline;
+    text-decoration: none;
+    outline: 0;
+    box-sizing: border-box;
+}
+body {
+    background: #55dcff;
+}
+.center{
+    width: 300px;
+    height: 700px;
+    margin: 0 auto;
+    margin-top: 10%;
+}
+.sunny{
+    width: 100px;
+    height: 100px;
+    border-radius: 100%;
+    background: #ffd600;
+}
+
+
+
