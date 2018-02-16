@@ -18,7 +18,6 @@ document.addEventListener('DOMContentLoaded', function(){
         render(){
             return (
                 <div>
-                    <h1>Weather App</h1>
                     <Header/>
                 </div>
 

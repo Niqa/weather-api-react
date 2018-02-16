@@ -11,11 +11,16 @@
 body {
     background: #55dcff;
 }
+h1{
+    text-transform: uppercase;
+}
+
 .center{
     width: 300px;
     height: 700px;
     margin: 0 auto;
     margin-top: 10%;
+    text-align: center;
 }
 .sunny{
     width: 100px;
