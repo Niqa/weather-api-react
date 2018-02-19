@@ -1,17 +1,4 @@
-/*
-let fetchLocal = function() {
-    let localUrl ="http://ip-api.com/json";
-
-    return fetch(localUrl).then((response) => response.json());
-};
-console.log(fetchLocal.response);
-
-export default { fetchLocal };
-
-*/
 import React from 'react';
-
-
 
 class Localization extends React.Component {
     constructor(props) {
@@ -19,9 +6,7 @@ class Localization extends React.Component {
         this.state = {
             error: null,
             isLoaded: false,
-            lat: 0,
-            lon: 0,
-            city: null
+            city: ''
         };
     }
 
@@ -33,12 +18,8 @@ class Localization extends React.Component {
                     this.setState({
                         isLoaded: true,
                         city: result.city
-
                     });
                 },
-                // Note: it's important to handle errors here
-                // instead of a catch() block so that we don't swallow
-                // exceptions from actual bugs in components.
                 (error) => {
                     this.setState({
                         isLoaded: true,
@@ -48,7 +29,10 @@ class Localization extends React.Component {
             )
     }
 
+
+
     render() {
+        var cityLocal = this.state.city;
         const { error, isLoaded, city} = this.state;
         if (error) {
             return <div>Error: {error.message}</div>;
@@ -56,11 +40,17 @@ class Localization extends React.Component {
             return <div>Loading...</div>;
         } else {
             return (
-                <h1>
-                    {city}
-                </h1>
+
+                <h1 className={'cityName'}>{city}</h1>
+
             );
         }
     }
 }
+/*
+<h1 className={'cityName'}>
+                        {city}
+                    </h1>
+ */
+
 export default Localization;

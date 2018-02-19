@@ -1,60 +1,47 @@
-/*let API_KEY = "6a3c1faa5b9593952822c93f1be1c342";
-let apiUrl = "http://api.openweathermap.org/data/2.5/";
-
-let fetchWeather = function(city) {
-    let weeklyWeatherUrl =
-        `${apiUrl}/forecast/daily?q=${city}&units=metric&cnt=7&appid=${API_KEY}`
-
-    return fetch(weeklyWeatherUrl).then((response) => response.json());
-};
-
-export { fetchWeather }
-
-*/
-
 import React from 'react';
-
-
-let city = 'Krakow';
+import Localization from './localization.jsx';
 
 class Weather extends React.Component {
     constructor(props) {
         super(props);
         this.state={
-            temp: 0,
-            des: 0
-
+            temp: -100,
+            des: '',
+            city: 'Krakow'
         }
     }
 
-    getApi(){
 
-        const apiURL = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=metric&lang=pl&APPID=6a3c1faa5b9593952822c93f1be1c342";
+    getApi(){
+    var cityS = this.state.city;
+        const apiURL = `http://api.openweathermap.org/data/2.5/weather?q=`+ cityS +`&units=metric&lang=pl&APPID=6a3c1faa5b9593952822c93f1be1c342`;
+        console.log(apiURL + " apiURL");
         return fetch(apiURL)
             .then((response) => response.json())
             .then((responseJson) => {
 
                 this.setState({
                     temp: responseJson.main.temp,
-                    des: responseJson.main
+                    des: responseJson.weather[0].main,
                 })
-
+                console.log("main = " + responseJson.weather[0].main+ "\ntemp = " +responseJson.main.temp);
             })
     }
+
+
     componentDidMount(){
         window.addEventListener('load', this.getApi());
     }
 
     render() {
-        let showWeather = null;
-
-        if(this.state.temp){
-            showWeather = (
+        let showWeather = (
                 <div>
                     <h1>{this.state.temp}°C</h1>
+                    <h2>{this.state.des}</h2>
+                    <h2>{this.state.city}</h2>
                 </div>
             )
-        }
+
 
             return (
                 <div>
