@@ -11,9 +11,11 @@ import fetchLocal from "./localization.jsx";
 class Header extends React.Component{
     render(){
         return (
-            <div >
-                <DateConstructor/>
-                <Form/>
+            <div className={'container'}>
+                <div className={'inContainer'}>
+                    <DateConstructor/>
+                    <Form/>
+                </div>
             </div>
 
         )

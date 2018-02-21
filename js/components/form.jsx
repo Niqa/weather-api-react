@@ -73,7 +73,7 @@ export default class Form extends React.Component {
         return (
             <div>
                 <form className="App" onSubmit={this.onSubmit}>
-                    <input value={this.state.city} onChange={this.onChange} placeholder={'Wpisz miasto...'}/>
+                    <input value={this.state.city} onChange={this.onChange} placeholder={' Wpisz miasto...'}/>
                     <button onClick={() => { this.getApi() }} className={'button'}>Pokaż pogode</button>
                 </form>
                 <div>

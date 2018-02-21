@@ -28428,9 +28428,13 @@ var Header = function (_React$Component) {
         value: function render() {
             return _react2.default.createElement(
                 "div",
-                null,
-                _react2.default.createElement(_date2.default, null),
-                _react2.default.createElement(_form2.default, null)
+                { className: 'container' },
+                _react2.default.createElement(
+                    "div",
+                    { className: 'inContainer' },
+                    _react2.default.createElement(_date2.default, null),
+                    _react2.default.createElement(_form2.default, null)
+                )
             );
         }
     }]);
@@ -28675,7 +28679,7 @@ var Form = function (_React$Component) {
                 _react2.default.createElement(
                     'form',
                     { className: 'App', onSubmit: this.onSubmit },
-                    _react2.default.createElement('input', { value: this.state.city, onChange: this.onChange, placeholder: 'Wpisz miasto...' }),
+                    _react2.default.createElement('input', { value: this.state.city, onChange: this.onChange, placeholder: ' Wpisz miasto...' }),
                     _react2.default.createElement(
                         'button',
                         { onClick: function onClick() {
