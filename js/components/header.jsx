@@ -12,9 +12,8 @@ class Header extends React.Component{
     render(){
         return (
             <div >
-                <Localization/>
                 <DateConstructor/>
-                <Weather/>
+                <Form/>
             </div>
 
         )

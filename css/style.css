@@ -7,14 +7,30 @@
     text-decoration: none;
     outline: 0;
     box-sizing: border-box;
+    color: white;
+    font-family: Arial;
 }
 body {
-    background: #55dcff;
+    background: #000;
 }
 h1{
     text-transform: uppercase;
 }
-
+input{
+    font-size: 30px;
+    background: transparent;
+    border-bottom: 1px solid white;
+}
+.button{
+    width: 300px;
+    height: 30px;
+    background: transparent;
+    border: 1px solid #e03c31;
+    border-radius: 15px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    color: #e03c31;
+}
 .center{
     width: 300px;
     height: 700px;
