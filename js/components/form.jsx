@@ -31,6 +31,24 @@ export default class Form extends React.Component {
                 console.error(error);
             });
     }
+    componentDidMount(){
+        fetch("http://ip-api.com/json")
+            .then(res => res.json())
+            .then(
+                (result) => {
+                    this.setState({
+                        isLoaded: true,
+                        city: result.city
+                    });
+                },
+                (error) => {
+                    this.setState({
+                        isLoaded: true,
+                        error
+                    });
+                }
+            )
+    }
 
 
     onChange = (event) => {
@@ -45,14 +63,22 @@ export default class Form extends React.Component {
     };
     icons(){
         if((this.state.id >= 200 && this.state.id < 321) || (this.state.id >= 500 && this.state.id < 531)){
+            console.log(this.state.id + " 1");
             return <img src={'./images/drop.png'}/> //rain
         } else if(this.state.id >= 600 && this.state.id < 622){
+            console.log(this.state.id + " 2");
             return <img src={'./images/snowflake.png'}/> //snow
-        } else if(this.state.id == 800){
+        } else if((this.state.id > 800) && (this.state.id <= 804)){
+            console.log(this.state.id + " 4");
+            return <img src={'./images/clouds.png'}/> //clouds
+        } else if(this.state.id === 800){
+            console.log(this.state.id + " 5");
             return <img src={'./images/sun.png'}/> //day
-        } else if((currentDate.getHours() > 6) || (currentDate.getHours() < 19)){
+        } else if((currentDate.getHours() > 6) && (currentDate.getHours() < 19)){
+            console.log(this.state.id + " 6");
             return <img src={'./images/sun.png'}/> //day
-        }else if((currentDate.getHours() > 19) || (currentDate.getHours() < 6)){
+        }else if((currentDate.getHours() > 19) && (currentDate.getHours() < 6)){
+            console.log(this.state.id + " 3");
             return <img src={'./images/moon.png'}/> //night
         }
     }

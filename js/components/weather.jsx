@@ -1,5 +1,4 @@
 import React from 'react';
-import Localization from './localization.jsx';
 
 class Weather extends React.Component {
     constructor(props) {
@@ -7,10 +6,10 @@ class Weather extends React.Component {
         this.state={
             temp: -100,
             des: '',
+            isLoaded: false,
             city: 'Krakow'
         }
     }
-
 
     getApi(){
     var cityS = this.state.city;
@@ -30,6 +29,22 @@ class Weather extends React.Component {
 
 
     componentDidMount(){
+        fetch("http://ip-api.com/json")
+            .then(res => res.json())
+            .then(
+                (result) => {
+                    this.setState({
+                        isLoaded: true,
+                        city: result.city
+                    });
+                },
+                (error) => {
+                    this.setState({
+                        isLoaded: true,
+                        error
+                    });
+                }
+            )
         window.addEventListener('load', this.getApi());
     }
 

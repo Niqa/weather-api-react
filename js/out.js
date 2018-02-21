@@ -13624,108 +13624,7 @@ function createRouterHistory(createHistory) {
 }
 
 /***/ }),
-/* 115 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(7);
-
-var _react2 = _interopRequireDefault(_react);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var Localization = function (_React$Component) {
-    _inherits(Localization, _React$Component);
-
-    function Localization(props) {
-        _classCallCheck(this, Localization);
-
-        var _this = _possibleConstructorReturn(this, (Localization.__proto__ || Object.getPrototypeOf(Localization)).call(this, props));
-
-        _this.state = {
-            error: null,
-            isLoaded: false,
-            city: ''
-        };
-        return _this;
-    }
-
-    _createClass(Localization, [{
-        key: 'componentDidMount',
-        value: function componentDidMount() {
-            var _this2 = this;
-
-            fetch("http://ip-api.com/json").then(function (res) {
-                return res.json();
-            }).then(function (result) {
-                _this2.setState({
-                    isLoaded: true,
-                    city: result.city
-                });
-            }, function (error) {
-                _this2.setState({
-                    isLoaded: true,
-                    error: error
-                });
-            });
-        }
-    }, {
-        key: 'render',
-        value: function render() {
-            var cityLocal = this.state.city;
-            var _state = this.state,
-                error = _state.error,
-                isLoaded = _state.isLoaded,
-                city = _state.city;
-
-            if (error) {
-                return _react2.default.createElement(
-                    'div',
-                    null,
-                    'Error: ',
-                    error.message
-                );
-            } else if (!isLoaded) {
-                return _react2.default.createElement(
-                    'div',
-                    null,
-                    'Loading...'
-                );
-            } else {
-                return _react2.default.createElement(
-                    'h1',
-                    { className: 'cityName' },
-                    city
-                );
-            }
-        }
-    }]);
-
-    return Localization;
-}(_react2.default.Component);
-/*
-<h1 className={'cityName'}>
-                        {city}
-                    </h1>
- */
-
-exports.default = Localization;
-
-/***/ }),
+/* 115 */,
 /* 116 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -28386,10 +28285,6 @@ var _react = __webpack_require__(7);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _localization = __webpack_require__(115);
-
-var _localization2 = _interopRequireDefault(_localization);
-
 var _weather = __webpack_require__(245);
 
 var _weather2 = _interopRequireDefault(_weather);
@@ -28401,10 +28296,6 @@ var _form2 = _interopRequireDefault(_form);
 var _date = __webpack_require__(247);
 
 var _date2 = _interopRequireDefault(_date);
-
-var _quotes = __webpack_require__(248);
-
-var _quotes2 = _interopRequireDefault(_quotes);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -28433,7 +28324,8 @@ var Header = function (_React$Component) {
                     "div",
                     { className: 'inContainer' },
                     _react2.default.createElement(_date2.default, null),
-                    _react2.default.createElement(_form2.default, null)
+                    _react2.default.createElement(_form2.default, null),
+                    _react2.default.createElement(_weather2.default, null)
                 )
             );
         }
@@ -28461,10 +28353,6 @@ var _react = __webpack_require__(7);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _localization = __webpack_require__(115);
-
-var _localization2 = _interopRequireDefault(_localization);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -28484,6 +28372,7 @@ var Weather = function (_React$Component) {
         _this.state = {
             temp: -100,
             des: '',
+            isLoaded: false,
             city: 'Krakow'
         };
         return _this;
@@ -28511,6 +28400,21 @@ var Weather = function (_React$Component) {
     }, {
         key: 'componentDidMount',
         value: function componentDidMount() {
+            var _this3 = this;
+
+            fetch("http://ip-api.com/json").then(function (res) {
+                return res.json();
+            }).then(function (result) {
+                _this3.setState({
+                    isLoaded: true,
+                    city: result.city
+                });
+            }, function (error) {
+                _this3.setState({
+                    isLoaded: true,
+                    error: error
+                });
+            });
             window.addEventListener('load', this.getApi());
         }
     }, {
@@ -28630,24 +28534,51 @@ var Form = function (_React$Component) {
             });
         }
     }, {
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            var _this3 = this;
+
+            fetch("http://ip-api.com/json").then(function (res) {
+                return res.json();
+            }).then(function (result) {
+                _this3.setState({
+                    isLoaded: true,
+                    city: result.city
+                });
+            }, function (error) {
+                _this3.setState({
+                    isLoaded: true,
+                    error: error
+                });
+            });
+        }
+    }, {
         key: 'icons',
         value: function icons() {
             if (this.state.id >= 200 && this.state.id < 321 || this.state.id >= 500 && this.state.id < 531) {
+                console.log(this.state.id + " 1");
                 return _react2.default.createElement('img', { src: './images/drop.png' }); //rain
             } else if (this.state.id >= 600 && this.state.id < 622) {
+                console.log(this.state.id + " 2");
                 return _react2.default.createElement('img', { src: './images/snowflake.png' }); //snow
-            } else if (this.state.id == 800) {
+            } else if (this.state.id > 800 && this.state.id <= 804) {
+                console.log(this.state.id + " 4");
+                return _react2.default.createElement('img', { src: './images/clouds.png' }); //clouds
+            } else if (this.state.id === 800) {
+                console.log(this.state.id + " 5");
                 return _react2.default.createElement('img', { src: './images/sun.png' }); //day
-            } else if (currentDate.getHours() > 6 || currentDate.getHours() < 19) {
+            } else if (currentDate.getHours() > 6 && currentDate.getHours() < 19) {
+                console.log(this.state.id + " 6");
                 return _react2.default.createElement('img', { src: './images/sun.png' }); //day
-            } else if (currentDate.getHours() > 19 || currentDate.getHours() < 6) {
+            } else if (currentDate.getHours() > 19 && currentDate.getHours() < 6) {
+                console.log(this.state.id + " 3");
                 return _react2.default.createElement('img', { src: './images/moon.png' }); //night
             }
         }
     }, {
         key: 'render',
         value: function render() {
-            var _this3 = this;
+            var _this4 = this;
 
             var showWeather = null;
             if (this.state.temp) {
@@ -28679,11 +28610,11 @@ var Form = function (_React$Component) {
                 _react2.default.createElement(
                     'form',
                     { className: 'App', onSubmit: this.onSubmit },
-                    _react2.default.createElement('input', { value: this.state.city, onChange: this.onChange, placeholder: ' Wpisz miasto...' }),
+                    _react2.default.createElement('input', { value: this.state.city, onChange: this.onChange, placeholder: ' miasto...' }),
                     _react2.default.createElement(
                         'button',
                         { onClick: function onClick() {
-                                _this3.getApi();
+                                _this4.getApi();
                             }, className: 'button' },
                         'Poka\u017C pogode'
                     )
@@ -28774,45 +28705,6 @@ var DateConstructor = function (_React$Component) {
 }(_react2.default.Component);
 
 exports.default = DateConstructor;
-
-/***/ }),
-/* 248 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/*import React from 'react';
-
-$.ajax( {
-    url: '/wp-json/posts?filter[orderby]=rand&filter[posts_per_page]=1',
-    success: function(data) {
-        var post = data.shift(); // The data is an array of posts. Grab the first one.
-        $('#quote-title').text(post.title);
-        $('#quote-content').html(post.content);
-
-        // If the Source is available, use it. Otherwise hide it.
-        if (typeof post.custom_meta !== 'undefined' && typeof post.custom_meta.Source !== 'undefined') {
-            $('#quote-source').html('Source:' + post.custom_meta.Source);
-        } else {
-            $('#quote-source').text('');
-        }
-    },
-    cache: false
-});
-
-class Quotes extends React.Component{
-    render(){
-
-        return (
-            <div >
-                <h2>Quotes</h2>
-            </div>
-
-        )
-    }
-}
-
-export default Quotes;*/
-
 
 /***/ })
 /******/ ]);
