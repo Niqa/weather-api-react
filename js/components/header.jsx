@@ -11,7 +11,6 @@ class Header extends React.Component{
                 <div className={'inContainer'}>
                     <DateConstructor/>
                     <Form/>
-                    <Weather/>
                 </div>
             </div>
 

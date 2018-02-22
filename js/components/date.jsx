@@ -25,7 +25,7 @@ class DateConstructor extends React.Component{
 
     render(){
         return (
-            <div>
+            <div className={'date'}>
                 <h3>{ numberDay + ", " +currentDate.getDate() + "." + "0" +(currentDate.getMonth()+1) + "." + currentDate.getFullYear()}</h3>
             </div>
 

@@ -39,7 +39,7 @@ input{
 }
 .container{
     width: 50vh;
-    height: 60vh;
+    height: 80vh;
     border: 1px solid #e03c31;
     border-radius: 15px;
     text-align: center;
@@ -48,6 +48,10 @@ input{
 }
 .inContainer {
     margin: 40px;
+}
+.date{
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 

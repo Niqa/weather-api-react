@@ -28324,8 +28324,7 @@ var Header = function (_React$Component) {
                     "div",
                     { className: 'inContainer' },
                     _react2.default.createElement(_date2.default, null),
-                    _react2.default.createElement(_form2.default, null),
-                    _react2.default.createElement(_weather2.default, null)
+                    _react2.default.createElement(_form2.default, null)
                 )
             );
         }
@@ -28342,10 +28341,6 @@ exports.default = Header;
 
 "use strict";
 
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -28373,15 +28368,35 @@ var Weather = function (_React$Component) {
             temp: -100,
             des: '',
             isLoaded: false,
-            city: 'Krakow'
+            city: ''
         };
         return _this;
     }
 
     _createClass(Weather, [{
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            var _this2 = this;
+
+            fetch("http://ip-api.com/json").then(function (res) {
+                return res.json();
+            }).then(function (result) {
+                _this2.setState({
+                    isLoaded: true,
+                    city: result.city
+                });
+            }, function (error) {
+                _this2.setState({
+                    isLoaded: true,
+                    error: error
+                });
+            });
+            window.addEventListener('load', this.getApi());
+        }
+    }, {
         key: 'getApi',
         value: function getApi() {
-            var _this2 = this;
+            var _this3 = this;
 
             var cityS = this.state.city;
             var apiURL = 'http://api.openweathermap.org/data/2.5/weather?q=' + cityS + '&units=metric&lang=pl&APPID=6a3c1faa5b9593952822c93f1be1c342';
@@ -28390,7 +28405,7 @@ var Weather = function (_React$Component) {
                 return response.json();
             }).then(function (responseJson) {
 
-                _this2.setState({
+                _this3.setState({
                     temp: responseJson.main.temp,
                     des: responseJson.weather[0].main
                 });
@@ -28398,29 +28413,10 @@ var Weather = function (_React$Component) {
             });
         }
     }, {
-        key: 'componentDidMount',
-        value: function componentDidMount() {
-            var _this3 = this;
-
-            fetch("http://ip-api.com/json").then(function (res) {
-                return res.json();
-            }).then(function (result) {
-                _this3.setState({
-                    isLoaded: true,
-                    city: result.city
-                });
-            }, function (error) {
-                _this3.setState({
-                    isLoaded: true,
-                    error: error
-                });
-            });
-            window.addEventListener('load', this.getApi());
-        }
-    }, {
         key: 'render',
         value: function render() {
-            var showWeather = _react2.default.createElement(
+
+            var showWeather2 = _react2.default.createElement(
                 'div',
                 null,
                 _react2.default.createElement(
@@ -28447,7 +28443,7 @@ var Weather = function (_React$Component) {
                 _react2.default.createElement(
                     'div',
                     null,
-                    showWeather
+                    showWeather2
                 )
             );
         }
@@ -28456,7 +28452,7 @@ var Weather = function (_React$Component) {
     return Weather;
 }(_react2.default.Component);
 
-exports.default = Weather;
+module.exports = Weather;
 
 /***/ }),
 /* 246 */
@@ -28474,6 +28470,10 @@ var _createClass = function () { function defineProperties(target, props) { for 
 var _react = __webpack_require__(7);
 
 var _react2 = _interopRequireDefault(_react);
+
+var _weather = __webpack_require__(245);
+
+var _weather2 = _interopRequireDefault(_weather);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -28507,7 +28507,6 @@ var Form = function (_React$Component) {
         _this.state = {
             city: '',
             temp: null,
-            des: null,
             id: null
         };
         return _this;
@@ -28526,30 +28525,10 @@ var Form = function (_React$Component) {
                 _this2.setState({
                     city: responseJson.name,
                     temp: responseJson.main.temp,
-                    des: responseJson.weather[0].main,
                     id: responseJson.weather[0].id
                 });
             }).catch(function (error) {
                 console.error(error);
-            });
-        }
-    }, {
-        key: 'componentDidMount',
-        value: function componentDidMount() {
-            var _this3 = this;
-
-            fetch("http://ip-api.com/json").then(function (res) {
-                return res.json();
-            }).then(function (result) {
-                _this3.setState({
-                    isLoaded: true,
-                    city: result.city
-                });
-            }, function (error) {
-                _this3.setState({
-                    isLoaded: true,
-                    error: error
-                });
             });
         }
     }, {
@@ -28578,7 +28557,7 @@ var Form = function (_React$Component) {
     }, {
         key: 'render',
         value: function render() {
-            var _this4 = this;
+            var _this3 = this;
 
             var showWeather = null;
             if (this.state.temp) {
@@ -28592,8 +28571,8 @@ var Form = function (_React$Component) {
                     ),
                     _react2.default.createElement(
                         'h1',
-                        null,
-                        this.state.temp,
+                        { style: { fontSize: '5em' } },
+                        this.state.temp.toPrecision(2),
                         '\xB0C'
                     ),
                     _react2.default.createElement(
@@ -28610,11 +28589,11 @@ var Form = function (_React$Component) {
                 _react2.default.createElement(
                     'form',
                     { className: 'App', onSubmit: this.onSubmit },
-                    _react2.default.createElement('input', { value: this.state.city, onChange: this.onChange, placeholder: ' miasto...' }),
+                    _react2.default.createElement('input', { value: this.state.city, onChange: this.onChange, placeholder: ' Wpisz miasto...' }),
                     _react2.default.createElement(
                         'button',
                         { onClick: function onClick() {
-                                _this4.getApi();
+                                _this3.getApi();
                             }, className: 'button' },
                         'Poka\u017C pogode'
                     )
@@ -28691,7 +28670,7 @@ var DateConstructor = function (_React$Component) {
         value: function render() {
             return _react2.default.createElement(
                 'div',
-                null,
+                { className: 'date' },
                 _react2.default.createElement(
                     'h3',
                     null,

@@ -1,4 +1,6 @@
 import React from 'react';
+import Weather from './weather.jsx';
+
 const currentDate = new Date();
 
 
@@ -8,12 +10,10 @@ export default class Form extends React.Component {
         this.state = {
             city: '',
             temp: null,
-            des: null,
             id: null
         };
     }
     getApi() {
-
         const apiURL = "http://api.openweathermap.org/data/2.5/weather?q="+this.state.city+"&units=metric&lang=pl&appid=dbe98c6eabaf54fa682fbca51cdedf80";
         return fetch(apiURL)
             .then((response) => response.json())
@@ -22,7 +22,6 @@ export default class Form extends React.Component {
                 this.setState({
                     city: responseJson.name,
                     temp: responseJson.main.temp,
-                    des: responseJson.weather[0].main,
                     id: responseJson.weather[0].id
                 })
 
@@ -31,25 +30,6 @@ export default class Form extends React.Component {
                 console.error(error);
             });
     }
-    componentDidMount(){
-        fetch("http://ip-api.com/json")
-            .then(res => res.json())
-            .then(
-                (result) => {
-                    this.setState({
-                        isLoaded: true,
-                        city: result.city
-                    });
-                },
-                (error) => {
-                    this.setState({
-                        isLoaded: true,
-                        error
-                    });
-                }
-            )
-    }
-
 
     onChange = (event) => {
         this.setState({ city: event.target.value });
@@ -84,13 +64,12 @@ export default class Form extends React.Component {
     }
 
     render() {
-
         let showWeather = null;
         if(this.state.temp){
             showWeather= (
                 <div>
                     <h2>{this.state.city}</h2>
-                    <h1>{this.state.temp}°C</h1>
+                    <h1 style={{fontSize:'5em'}}>{this.state.temp.toPrecision(2)}°C</h1>
                     <div>{this.icons()}</div>
                 </div>
             )
@@ -106,6 +85,7 @@ export default class Form extends React.Component {
                     {showWeather}
                 </div>
             </div>
+
         );
     }
 }
